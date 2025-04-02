@@ -96,14 +96,7 @@ function TodoItem({ todoList }) {
             readOnly={!isTodoEditable}
             aria-label="Todo title"
           />
-          <input
-            type="text"
-            className={`p-2 border text-[#808080] outline-none w-full bg-transparent rounded-lg ${isTodoEditable ? "border-black/10" : "border-transparent"} ${todoList.completed ? "line-through" : ""}`}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            readOnly={!isTodoEditable}
-            aria-label="Todo description"
-          />
+        
           <select
             className={`border outline-none p-2 w-full bg-transparent rounded-lg ${isTodoEditable ? "border-black/10" : "border-transparent"} ${todoList.completed ? "line-through" : ""}`}
             value={priority}
@@ -126,6 +119,14 @@ function TodoItem({ todoList }) {
             <option value="Work">Work</option>
             <option value="Personal">Personal</option>
           </select>
+            <textarea
+            type="text"
+            className={`p-2 border text-[#808080] outline-none w-full bg-transparent rounded-lg ${isTodoEditable ? "border-black/10" : "border-transparent"} ${todoList.completed ? "line-through" : ""}`}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            readOnly={!isTodoEditable}
+            aria-label="Todo description"
+          />
         </div>
 
         <div className="flex justify-evenly items-center pt-5">
