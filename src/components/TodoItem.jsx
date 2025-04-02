@@ -1,12 +1,14 @@
 import { useContext, useState } from "react";
 import { TodoContext } from "../context/TodoContext";
 
-function TodoItem({ todoList}) {
+function TodoItem({ todoList }) {
   const [isTodoEditable, setIsTodoEditable] = useState(false);
   const [todoMsg, setTodoMsg] = useState(todoList.todoItem);
   const [description, setDescription] = useState(todoList.description);
   const [priority, setPriority] = useState(todoList.priority);
   const [category, setCategory] = useState(todoList.category);
+  const [isDeleted, setIsDeleted] = useState(false); 
+  const [undoTimeout, setUndoTimeout] = useState(null);
 
   const { dispatch } = useContext(TodoContext);
 
@@ -21,7 +23,7 @@ function TodoItem({ todoList}) {
         description,
         priority,
         category,
-        status:todoList.status
+        status: todoList.status
       },
     });
   };
@@ -37,10 +39,40 @@ function TodoItem({ todoList}) {
   //   });
   // };
 
-  // Drag Start Handler
   const dragstartHandler = (ev) => {
     ev.dataTransfer.setData("text/plain", todoList.id);
   };
+
+  const deleteTodo = () => {
+    setIsDeleted(true);
+
+    const timeoutId = setTimeout(() => {
+      dispatch({ type: "DELETE_TODO", payload: { id: todoList.id } });
+    }, 5000);
+
+    setUndoTimeout(timeoutId);
+  };
+
+  const undoDelete = () => {
+    setIsDeleted(false);
+    clearTimeout(undoTimeout);
+  };
+
+  if (isDeleted) {
+    return (
+      <div className="p-2 bg-red-100 border border-red-300 rounded-lg flex justify-between items-center">
+        <span>Task deleted. Undo?</span>
+        <button
+          onClick={undoDelete}
+          className="text-blue-500 hover:underline"
+          aria-label="Undo delete"
+        >
+          Undo
+        </button>
+      </div>
+    );
+  }
+
 
   return (
     <div id={`todo-${todoList.id}`} className="p-2">
@@ -49,7 +81,7 @@ function TodoItem({ todoList}) {
         draggable={!todoList.completed}
         onDragStart={dragstartHandler}
       >
-          {/* <input
+        {/* <input
                 type="checkbox"
                 className="cursor-pointer"
                 checked={todoList.completed}
@@ -112,7 +144,7 @@ function TodoItem({ todoList}) {
             {isTodoEditable ? "📁" : "✏️"}
           </button>
           <button
-            onClick={() => dispatch({ type: 'DELETE_TODO', payload: { id: todoList.id } })}
+             onClick={deleteTodo}
             className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0"
             aria-label="Delete todo"
           >

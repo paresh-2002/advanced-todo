@@ -4,10 +4,10 @@ import { reducer } from "./Reducer";
 export const TodoContext = createContext();
 
 const TodoProvider = (props) => {
+
     const initialState = {
         todos: JSON.parse(localStorage.getItem("todos")) || [],
     };
-
     const [state, dispatch] = useReducer(reducer, initialState);
 
     useEffect(() => {
