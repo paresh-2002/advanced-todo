@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { TodoContext } from '../context/TodoContext';
+import TodoItem from './TodoItem';
 
-const Todos = () => {
+const Todos = ({checkTodo}) => {
   const { state, dispatch } = useContext(TodoContext);
   const [dragTask, setDragTask] = useState(null);
   const [dragOverTask, setDragOverTask] = useState('');

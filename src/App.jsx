@@ -1,8 +1,7 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
-import TodoItem from './components/TodoItem';
 import TodoForm from './components/TodoForm';
-import { TodoContext } from './context/TodoContext';
+import Todos from './components/Todos';
 
 function App() {
   const [checkTodo, setCheckTodo] = useState({
@@ -37,7 +36,7 @@ function App() {
           <TodoForm setShowModal={setShowModal} checkTodo={checkTodo} />
         </div>
       )}
-
+  <Todos checkTodo={checkTodo}/>
       
     </div>
   );
