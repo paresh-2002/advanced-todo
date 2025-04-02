@@ -98,7 +98,7 @@ const Todos = ({ checkTodo }) => {
         onDragLeave={handleDragLeave}
         data-status={checkTodo.DOING}
       >
-        <div className='w-full text-center flex justify-center gap-5 items-center bg-[#ccbed7]'>
+        <div className='w-full text-center flex justify-center gap-5 items-center bg-[#c6e9a7]'>
           <h5 className="text-2xl  font-bold py-5 ">Doing</h5>
           <select
             className="py-3 px-5 focus:outline-none"
@@ -118,7 +118,7 @@ const Todos = ({ checkTodo }) => {
                 onDrag={(e) => handleDrag(e, item)}
                 key={item.id}
               >
-                <TodoItem todoList={item} />
+                <TodoItem todoList={item}  />
               </div>
             ))}
         </div>

@@ -7,7 +7,7 @@ function TodoItem({ todoList }) {
   const [description, setDescription] = useState(todoList.description);
   const [priority, setPriority] = useState(todoList.priority);
   const [category, setCategory] = useState(todoList.category);
-  const [isDeleted, setIsDeleted] = useState(false); 
+  const [isDeleted, setIsDeleted] = useState(false);
   const [undoTimeout, setUndoTimeout] = useState(null);
 
   const { dispatch } = useContext(TodoContext);
@@ -77,7 +77,7 @@ function TodoItem({ todoList }) {
   return (
     <div id={`todo-${todoList.id}`} className="p-2">
       <div
-        className={`flex flex-col w-full border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300 text-black ${todoList.completed ? "bg-[#c6e9a7]" : "bg-[#ccbed7]"}`}
+        className={`flex flex-col w-full border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300 text-black  ${todoList.status === 'DOING' ? "bg-[#c6e9a7]" : "bg-[#ccbed7]"}`}
         draggable={!todoList.completed}
         onDragStart={dragstartHandler}
       >
@@ -96,7 +96,7 @@ function TodoItem({ todoList }) {
             readOnly={!isTodoEditable}
             aria-label="Todo title"
           />
-        
+
           <select
             className={`border outline-none p-2 w-full bg-transparent rounded-lg ${isTodoEditable ? "border-black/10" : "border-transparent"} ${todoList.completed ? "line-through" : ""}`}
             value={priority}
@@ -119,7 +119,7 @@ function TodoItem({ todoList }) {
             <option value="Work">Work</option>
             <option value="Personal">Personal</option>
           </select>
-            <textarea
+          <textarea
             type="text"
             className={`p-2 border text-[#808080] outline-none w-full bg-transparent rounded-lg ${isTodoEditable ? "border-black/10" : "border-transparent"} ${todoList.completed ? "line-through" : ""}`}
             value={description}
@@ -145,7 +145,7 @@ function TodoItem({ todoList }) {
             {isTodoEditable ? "📁" : "✏️"}
           </button>
           <button
-             onClick={deleteTodo}
+            onClick={deleteTodo}
             className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0"
             aria-label="Delete todo"
           >
