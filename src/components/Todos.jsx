@@ -5,6 +5,9 @@ import TodoItem from './TodoItem';
 const Todos = ({ checkTodo }) => {
   const { state, dispatch } = useContext(TodoContext);
   const [dragTask, setDragTask] = useState(null);
+  const [todoCategory, setTodoCategory] = useState('Work');
+  const [doingCategory, setDoingCategory] = useState('Work');
+  const [doneCategory, setDoneCategory] = useState('Work');
   const [dragOverTask, setDragOverTask] = useState('');
   const handleDrag = (e, task) => {
     e.preventDefault();
@@ -61,10 +64,20 @@ const Todos = ({ checkTodo }) => {
         onDragLeave={handleDragLeave}
         data-status={checkTodo.TODO}
       >
-        <h5 className="text-2xl w-full text-center font-bold py-5 bg-[#ccbed7]">Todo</h5>
+        <div className='w-full text-center flex justify-center gap-5 items-center bg-[#ccbed7]'>
+          <h5 className="text-2xl  font-bold py-5 ">Todo</h5>
+          <select
+            className="py-3 px-5 focus:outline-none"
+            value={todoCategory}
+            onChange={(e) => setTodoCategory(e.target.value)}
+          >
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+          </select>
+        </div>
         <div className="">
           {state.todos
-            .filter((todo) => todo.status === 'TODO')
+            .filter((todo) => todo.status === 'TODO' && todo.category === todoCategory)
             .map((item) => (
               <div
                 draggable={true}
@@ -85,10 +98,20 @@ const Todos = ({ checkTodo }) => {
         onDragLeave={handleDragLeave}
         data-status={checkTodo.DOING}
       >
-        <h5 className="text-2xl text-center font-bold py-5 bg-[#c6e9a7] w-full">Doing</h5>
+        <div className='w-full text-center flex justify-center gap-5 items-center bg-[#ccbed7]'>
+          <h5 className="text-2xl  font-bold py-5 ">Doing</h5>
+          <select
+            className="py-3 px-5 focus:outline-none"
+            value={doingCategory}
+            onChange={(e) => setDoingCategory(e.target.value)}
+          >
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+          </select>
+        </div>
         <div className="">
           {state.todos
-            .filter((todo) => todo.status === 'DOING')
+            .filter((todo) => todo.status === 'DOING' && todo.category === doingCategory)
             .map((item) => (
               <div
                 draggable={true}
@@ -109,7 +132,17 @@ const Todos = ({ checkTodo }) => {
         onDragLeave={handleDragLeave}
         data-status={checkTodo.DONE}
       >
-        <h5 className="text-2xl text-center font-bold py-5 w-full bg-[#ccbed7]">Done</h5>
+        <div className='w-full text-center flex justify-center gap-5 items-center bg-[#ccbed7]'>
+          <h5 className="text-2xl  font-bold py-5 ">Done</h5>
+          <select
+            className="py-3 px-5 focus:outline-none"
+            value={doneCategory}
+            onChange={(e) => setDoneCategory(e.target.value)}
+          >
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+          </select>
+        </div>
         <div className="w-full flex justify-end pr-5">
           <button
             className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600"
@@ -120,7 +153,7 @@ const Todos = ({ checkTodo }) => {
         </div>
         <div className="">
           {state.todos
-            .filter((todo) => todo.status === 'DONE')
+            .filter((todo) => todo.status === 'DONE' && todo.category === doneCategory)
             .map((item) => (
               <div
                 draggable={true}

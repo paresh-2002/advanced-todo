@@ -4,7 +4,7 @@ import TodoForm from './components/TodoForm';
 import Todos from './components/Todos';
 
 function App() {
-  const [checkTodo, setCheckTodo] = useState({
+  const [checkTodo] = useState({
     TODO: 'TODO',
     DOING: 'DOING',
     DONE: 'DONE',
